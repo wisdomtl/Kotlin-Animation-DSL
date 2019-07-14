@@ -20,7 +20,7 @@ class ObjectAnim : Anim() {
     /**
      * the [ObjectAnim] is about to run
      */
-    override var animation: ValueAnimator = ObjectAnimator()
+    override var animator: ValueAnimator = ObjectAnimator()
 
     var translationX: FloatArray? = null
     var translationY: FloatArray? = null
@@ -33,7 +33,7 @@ class ObjectAnim : Anim() {
     var target: Any? = null
         set(value) {
             field = value
-            (animation as ObjectAnimator).target = value
+            (animator as ObjectAnimator).target = value
         }
     /**
      * a list of [PropertyValuesHolder] to describe what kind of animations to run
@@ -79,6 +79,6 @@ class ObjectAnim : Anim() {
         scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { valuesHolder.add(it) }
         scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { valuesHolder.add(it) }
         alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { valuesHolder.add(it) }
-        animation.setValues(*valuesHolder.toTypedArray())
+        animator.setValues(*valuesHolder.toTypedArray())
     }
 }

@@ -1,5 +1,6 @@
 package taylor.com.animation_dsl
 
+import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.view.animation.Interpolator
 import android.view.animation.LinearInterpolator
@@ -13,14 +14,14 @@ abstract class Anim {
     /**
      * the real Animator which is about to run
      */
-    abstract var animation: ValueAnimator
+    abstract var animator: ValueAnimator
     /**
      * the duration of Animator
      */
     var duration
         get() = 300L
         set(value) {
-            animation.duration = value
+            animator.duration = value
         }
     /**
      * the interpolator of Animator
@@ -28,8 +29,9 @@ abstract class Anim {
     var interpolator
         get() = LinearInterpolator() as Interpolator
         set(value) {
-            animation.interpolator = value
+            animator.interpolator = value
         }
+    var builder:AnimatorSet.Builder? = null
     /**
      * reverse the value of [ValueAnimator]
      */
@@ -38,5 +40,5 @@ abstract class Anim {
     /**
      * get the Android ValueAnimator
      */
-    fun getAnim() = animation
+    fun animator() = animator
 }

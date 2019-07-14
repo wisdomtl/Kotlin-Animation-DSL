@@ -10,7 +10,7 @@ class ValueAnim : Anim() {
     /**
      * the [ValueAnimator] is about to run
      */
-    override var animation: ValueAnimator = ValueAnimator()
+    override var animator: ValueAnimator = ValueAnimator()
 
     /**
      * the animation value
@@ -20,8 +20,8 @@ class ValueAnim : Anim() {
             field = value
             value?.let {
                 when (it) {
-                    is FloatArray -> animation.setFloatValues(*it)
-                    is IntArray -> animation.setIntValues(*it)
+                    is FloatArray -> animator.setFloatValues(*it)
+                    is IntArray -> animator.setIntValues(*it)
                     else -> throw IllegalArgumentException("unsupported value type")
                 }
             }
@@ -33,7 +33,7 @@ class ValueAnim : Anim() {
     var action: ((Any) -> Unit)? = null
         set(value) {
             field = value
-            animation.addUpdateListener { valueAnimator ->
+            animator.addUpdateListener { valueAnimator ->
                 valueAnimator.animatedValue.let { value?.invoke(it) }
             }
         }
@@ -46,11 +46,11 @@ class ValueAnim : Anim() {
             when (it) {
                 is FloatArray -> {
                     it.reverse()
-                    animation.setFloatValues(*it)
+                    animator.setFloatValues(*it)
                 }
                 is IntArray -> {
                     it.reverse()
-                    animation.setIntValues(*it)
+                    animator.setIntValues(*it)
                 }
                 else -> throw IllegalArgumentException("unsupported type of value")
             }

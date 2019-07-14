@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.LinearInterpolator
 import kotlinx.android.synthetic.main.activity_main.*
 import taylor.com.animation_dsl.animSet
-import taylor.com.animation_dsl.with
 
 class MainActivity : AppCompatActivity() {
 
     private val objectAnim by lazy {
         animSet {
-            animObject {
+            objectAnim {
                 target = tv
                 translationX = floatArrayOf(0f, 200f)
                 scaleX = floatArrayOf(1f, 1.5f)
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private val togetherAnim by lazy {
         animSet {
-            play {
+            anim {
                 values = floatArrayOf(1.0f, 1.4f)
                 action = { value -> tv.scaleX = (value as Float) }
             } with anim {
@@ -54,7 +52,24 @@ class MainActivity : AppCompatActivity() {
                 action = { value -> tv.scaleX = (value as Float) }
             }
             duration = 400L
-            interpolator = LinearInterpolator()
+            interpolator = AccelerateInterpolator()
+        }
+    }
+
+    private val complexAnim by lazy {
+        animSet {
+            anim {
+                values = floatArrayOf(0f, -100f)
+                action = { value -> tv.translationX = (value as Float) }
+            } before anim {
+                values = floatArrayOf(1.0f, 2f)
+                action = { value -> tv.scaleY = (value as Float) }
+            } with anim {
+                values = floatArrayOf(1.0f, 0.3f)
+                action = { value -> tv.alpha = (value as Float) }
+            }
+            duration = 350L
+            interpolator = AccelerateInterpolator()
         }
     }
 
@@ -63,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         /**
-         * case:ObjectAnim
+         * case:ObjectAnim and reverse it
          */
         btnObject.setOnClickListener { objectAnim.start() }
         btnObjectReverse.setOnClickListener { objectAnim.reverse() }
@@ -79,6 +94,13 @@ class MainActivity : AppCompatActivity() {
          */
         btnSequence.setOnClickListener { sequenceAnim.start() }
         btnSequenceReverse.setOnClickListener { sequenceAnim.reverse() }
+
+        /**
+         * case:complex animations
+         */
+        btnComplex.setOnClickListener { complexAnim.start() }
+        btnComplexReverse.setOnClickListener { complexAnim.reverse() }
+
     }
 
 }
