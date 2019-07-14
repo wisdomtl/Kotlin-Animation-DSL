@@ -58,7 +58,6 @@ class AnimSet {
     var isReverse: Boolean = false
 
 
-
     /**
      * it creates a single [ValueAnim]
      * [with] and [before] is available to combine several [anim] to one complex animation set by chain-invocation style.
@@ -68,9 +67,8 @@ class AnimSet {
     /**
      * build an [ObjectAnim] with a much shorter and readable code by DSL
      */
-    fun objectAnim(action: ObjectAnim.() -> Unit) {
-        ObjectAnim().apply(action).also { it.setPropertyValueHolder() }.also { anims.add(it) }
-    }
+    fun objectAnim(action: ObjectAnim.() -> Unit): Anim = ObjectAnim().apply(action).also { it.setPropertyValueHolder() }.also { anims.add(it) }
+
 
     /**
      * reverse the animation

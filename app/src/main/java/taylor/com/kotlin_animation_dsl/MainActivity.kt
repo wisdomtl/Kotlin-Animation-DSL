@@ -64,9 +64,10 @@ class MainActivity : AppCompatActivity() {
             } before anim {
                 values = floatArrayOf(1.0f, 2f)
                 action = { value -> tv.scaleY = (value as Float) }
-            } with anim {
-                values = floatArrayOf(1.0f, 0.3f)
-                action = { value -> tv.alpha = (value as Float) }
+            } with objectAnim {
+                target = tv
+                scaleX = floatArrayOf(1f, 2f)
+                alpha = floatArrayOf(1f, 0.5f)
             }
             duration = 350L
             interpolator = AccelerateInterpolator()
