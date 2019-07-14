@@ -55,7 +55,7 @@ class AnimSet {
     /**
      * has played reversely
      */
-    var isReverse: Boolean = false
+    private var isReverse: Boolean = false
 
 
     /**
@@ -74,6 +74,7 @@ class AnimSet {
      * reverse the animation
      */
     fun reverse() {
+        if (animatorSet.isRunning) return
         anims.takeIf { !isReverse }?.forEach { anim -> anim.reverseValues() }
         animatorSet.start()
         isReverse = true
@@ -83,10 +84,18 @@ class AnimSet {
      * start the [AnimSet]
      */
     fun start() {
+        if (animatorSet.isRunning) return
         anims.takeIf { isReverse }?.forEach { anim -> anim.reverseValues() }
-        if (anims.size == 1) animatorSet.play(anims.first().animator())
+        if (anims.size == 1) animatorSet.play(anims.first().animator)
         animatorSet.start()
         isReverse = false
+    }
+
+    /**
+     * cancel the [AnimatorSet]
+     */
+    fun cancel(){
+        animatorSet.cancel()
     }
 
     fun build() {
@@ -126,7 +135,7 @@ class AnimSet {
      *
      */
     infix fun Anim.before(anim: Anim): Anim {
-        animatorSet.play(animator()).before(anim.animator()).let { this.builder = it }
+        animatorSet.play(animator).before(anim.animator).let { this.builder = it }
         return anim
     }
 
@@ -150,8 +159,8 @@ class AnimSet {
      *
      */
     infix fun Anim.with(anim: Anim): Anim {
-        if (builder == null) builder = animatorSet.play(animator()).with(anim.animator())
-        else builder?.with(anim.animator())
+        if (builder == null) builder = animatorSet.play(animator).with(anim.animator)
+        else builder?.with(anim.animator)
         return anim
     }
 }

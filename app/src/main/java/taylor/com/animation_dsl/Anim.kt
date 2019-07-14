@@ -36,9 +36,4 @@ abstract class Anim {
      * reverse the value of [ValueAnimator]
      */
     abstract fun reverseValues()
-
-    /**
-     * get the Android ValueAnimator
-     */
-    fun animator() = animator
 }
