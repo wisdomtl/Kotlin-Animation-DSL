@@ -73,5 +73,5 @@ animSet {
     start()
 }
 ```
-the code is just like an english article.
+The code is just like an english article.
 
