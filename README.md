@@ -1,5 +1,7 @@
 # Kotlin-Animation-DSL
-This repository create a series of API to make animation code shorter and more readable, using just one third of code to create animation compare to origin Android API.
+This repository create a series of API to make animation code shorter and more readable, it has the following features:
+1. Using just one third of code to create animation compare to origin Android API.
+2. The code written by `Kotlin-Animation-DSL` is just like an enghlish article.
 
 
 If we want to do an animation like the following: scale textView and translate button at the same time, then stretch imageView. in the end of animation, show a toast.
