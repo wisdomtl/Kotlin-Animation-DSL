@@ -4,6 +4,7 @@ This repository create a series of API to make animation code shorter and more r
 
 If we want to do an animation like the following: scale textView and translate button at the same time, then stretch imageView. in the end of animation, show a toast.
 
+## Android style
 Using Android origin API, the code will like this:
 ```
 PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.3f);
@@ -47,6 +48,7 @@ animatorSet.start();
 ```
 Too long and unreadable!
 
+## DSL style
 Let us do it by DSL:
 ```
 animSet {
