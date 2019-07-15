@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import taylor.com.animation_dsl.animSet
 
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             anim {
                 values = floatArrayOf(1.0f, 1.5f)
                 action = { value -> tv.scaleX = (value as Float) }
+                onStart = { Toast.makeText(this@MainActivity, "end", Toast.LENGTH_SHORT).show() }
             } before anim {
                 values = floatArrayOf(1.5f, 1.0f)
                 action = { value -> tv.scaleX = (value as Float) }
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         animSet {
             anim {
                 values = floatArrayOf(0f, -100f)
-                delay = 500L
+                delay = 150L
                 action = { value -> tv.translationX = (value as Float) }
             } before anim {
                 values = floatArrayOf(1.0f, 2f)
@@ -70,9 +72,10 @@ class MainActivity : AppCompatActivity() {
                 scaleX = floatArrayOf(1f, 2f)
                 alpha = floatArrayOf(1f, 0.5f)
             }
-            duration = 350L
+            duration = 150L
             delay = 400L
             interpolator = AccelerateInterpolator()
+            onStart = { Toast.makeText(this@MainActivity, "start", Toast.LENGTH_SHORT).show() }
         }
     }
 

@@ -1,5 +1,6 @@
 package taylor.com.animation_dsl
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.view.animation.Interpolator
@@ -14,7 +15,7 @@ abstract class Anim {
     /**
      * the real Animator which is about to run
      */
-    abstract var animator: ValueAnimator
+    abstract var animator: Animator
     var builder: AnimatorSet.Builder? = null
     /**
      * the duration of Animator
@@ -41,7 +42,35 @@ abstract class Anim {
             animator.startDelay = value
         }
     /**
+     * the callbacks describe the status of animation
+     */
+    var onRepeat: ((Animator) -> Unit)? = null
+    var onEnd: ((Animator) -> Unit)? = null
+    var onCancel: ((Animator) -> Unit)? = null
+    var onStart: ((Animator) -> Unit)? = null
+
+    /**
      * reverse the value of [ValueAnimator]
      */
-    abstract fun reverseValues()
+    abstract fun reverse()
+
+    internal fun addListener() {
+        animator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) {
+                animation?.let { onRepeat?.invoke(it) }
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                animation?.let { onEnd?.invoke(it) }
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                animation?.let { onCancel?.invoke(it) }
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+                animation?.let { onStart?.invoke(it) }
+            }
+        })
+    }
 }

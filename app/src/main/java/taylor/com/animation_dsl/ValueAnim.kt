@@ -1,5 +1,6 @@
 package taylor.com.animation_dsl
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 
 /**
@@ -10,7 +11,9 @@ class ValueAnim : Anim() {
     /**
      * the [ValueAnimator] is about to run
      */
-    override var animator: ValueAnimator = ValueAnimator()
+    override var animator: Animator = ValueAnimator()
+    private val valueAnimator
+        get() = animator as ValueAnimator
 
     /**
      * the animation value
@@ -20,8 +23,8 @@ class ValueAnim : Anim() {
             field = value
             value?.let {
                 when (it) {
-                    is FloatArray -> animator.setFloatValues(*it)
-                    is IntArray -> animator.setIntValues(*it)
+                    is FloatArray -> valueAnimator.setFloatValues(*it)
+                    is IntArray -> valueAnimator.setIntValues(*it)
                     else -> throw IllegalArgumentException("unsupported value type")
                 }
             }
@@ -33,7 +36,7 @@ class ValueAnim : Anim() {
     var action: ((Any) -> Unit)? = null
         set(value) {
             field = value
-            animator.addUpdateListener { valueAnimator ->
+            valueAnimator.addUpdateListener { valueAnimator ->
                 valueAnimator.animatedValue.let { value?.invoke(it) }
             }
         }
@@ -41,16 +44,16 @@ class ValueAnim : Anim() {
     /**
      * reverse the value of [ValueAnimator]
      */
-    override fun reverseValues() {
+    override fun reverse() {
         values?.let {
             when (it) {
                 is FloatArray -> {
                     it.reverse()
-                    animator.setFloatValues(*it)
+                    valueAnimator.setFloatValues(*it)
                 }
                 is IntArray -> {
                     it.reverse()
-                    animator.setIntValues(*it)
+                    valueAnimator.setIntValues(*it)
                 }
                 else -> throw IllegalArgumentException("unsupported type of value")
             }

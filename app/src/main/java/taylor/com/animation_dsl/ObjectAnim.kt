@@ -1,8 +1,8 @@
 package taylor.com.animation_dsl
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.animation.ValueAnimator
 
 /**
  * An Animator just like [ObjectAnimator], but it could reverse itself without the limitation of API level.
@@ -20,7 +20,9 @@ class ObjectAnim : Anim() {
     /**
      * the [ObjectAnim] is about to run
      */
-    override var animator: ValueAnimator = ObjectAnimator()
+    override var animator: Animator = ObjectAnimator()
+    private val objectAnimator
+        get() = animator as ObjectAnimator
 
     var translationX: FloatArray? = null
     var translationY: FloatArray? = null
@@ -43,7 +45,7 @@ class ObjectAnim : Anim() {
     /**
      * reverse the value of [ObjectAnimator]
      */
-    override fun reverseValues() {
+    override fun reverse() {
         valuesHolder.forEach { valuesHolder ->
             when (valuesHolder.propertyName) {
                 TRANSLATION_X -> translationX?.let {
@@ -79,6 +81,6 @@ class ObjectAnim : Anim() {
         scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { valuesHolder.add(it) }
         scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { valuesHolder.add(it) }
         alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { valuesHolder.add(it) }
-        animator.setValues(*valuesHolder.toTypedArray())
+        objectAnimator.setValues(*valuesHolder.toTypedArray())
     }
 }
