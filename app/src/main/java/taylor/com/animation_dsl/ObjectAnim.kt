@@ -15,6 +15,9 @@ class ObjectAnim : Anim() {
         private const val SCALE_X = "scaleX"
         private const val SCALE_Y = "scaleY"
         private const val ALPHA = "alpha"
+        private const val ROTATION = "rotation"
+        private const val ROTATION_X = "rotationX"
+        private const val ROTATION_Y = "rotationY"
     }
 
     /**
@@ -24,11 +27,17 @@ class ObjectAnim : Anim() {
     private val objectAnimator
         get() = animator as ObjectAnimator
 
+    /**
+     * predefine properties for [android.view.View]
+     */
     var translationX: FloatArray? = null
     var translationY: FloatArray? = null
     var scaleX: FloatArray? = null
     var scaleY: FloatArray? = null
     var alpha: FloatArray? = null
+    var rotation: FloatArray? = null
+    var rotationX: FloatArray? = null
+    var rotationY: FloatArray? = null
     /**
      * the object to be animated which is needed for [ObjectAnimator]
      */
@@ -68,6 +77,18 @@ class ObjectAnim : Anim() {
                     it.reverse()
                     valuesHolder.setFloatValues(*it)
                 }
+                ROTATION -> rotation?.let {
+                    it.reverse()
+                    valuesHolder.setFloatValues(*it)
+                }
+                ROTATION_X -> rotationX?.let {
+                    it.reverse()
+                    valuesHolder.setFloatValues(*it)
+                }
+                ROTATION_Y -> rotationY?.let {
+                    it.reverse()
+                    valuesHolder.setFloatValues(*it)
+                }
             }
         }
     }
@@ -81,6 +102,9 @@ class ObjectAnim : Anim() {
         scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { valuesHolder.add(it) }
         scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { valuesHolder.add(it) }
         alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { valuesHolder.add(it) }
+        rotation?.let { PropertyValuesHolder.ofFloat(ROTATION, *it) }?.let { valuesHolder.add(it) }
+        rotationX?.let { PropertyValuesHolder.ofFloat(ROTATION_X, *it) }?.let { valuesHolder.add(it) }
+        rotationY?.let { PropertyValuesHolder.ofFloat(ROTATION_Y, *it) }?.let { valuesHolder.add(it) }
         objectAnimator.setValues(*valuesHolder.toTypedArray())
     }
 }

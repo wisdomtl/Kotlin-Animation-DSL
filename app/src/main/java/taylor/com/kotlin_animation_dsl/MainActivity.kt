@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import taylor.com.animation_dsl.animSet
@@ -69,12 +70,13 @@ class MainActivity : AppCompatActivity() {
                 action = { value -> tv.scaleY = (value as Float) }
             } with objectAnim {
                 target = tv
-                scaleX = floatArrayOf(1f, 2f)
-                alpha = floatArrayOf(1f, 0.5f)
+                scaleX = floatArrayOf(1f, 1.5f)
+                rotationX = floatArrayOf(0f,360f)
+                alpha = floatArrayOf(1f, 0.5f,1f)
             }
-            duration = 150L
-            delay = 400L
-            interpolator = AccelerateInterpolator()
+            duration = 500L
+            delay = 100L
+            interpolator = LinearInterpolator()
             onStart = { Toast.makeText(this@MainActivity, "start", Toast.LENGTH_SHORT).show() }
         }
     }
