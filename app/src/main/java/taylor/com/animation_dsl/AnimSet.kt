@@ -48,6 +48,11 @@ class AnimSet {
         set(value) {
             animatorSet.duration = value
         }
+    var delay
+        get() = 0L
+        set(value) {
+            animatorSet.startDelay = value
+        }
     var onRepeat: ((Animator) -> Unit)? = null
     var onEnd: ((Animator) -> Unit)? = null
     var onCancel: ((Animator) -> Unit)? = null
@@ -56,7 +61,6 @@ class AnimSet {
      * has played reversely
      */
     private var isReverse: Boolean = false
-
 
     /**
      * it creates a single [ValueAnim]
@@ -68,7 +72,6 @@ class AnimSet {
      * build an [ObjectAnim] with a much shorter and readable code by DSL
      */
     fun objectAnim(action: ObjectAnim.() -> Unit): Anim = ObjectAnim().apply(action).also { it.setPropertyValueHolder() }.also { anims.add(it) }
-
 
     /**
      * reverse the animation

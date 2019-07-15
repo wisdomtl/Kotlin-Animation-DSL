@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         animSet {
             anim {
                 values = floatArrayOf(0f, -100f)
+                delay = 500L
                 action = { value -> tv.translationX = (value as Float) }
             } before anim {
                 values = floatArrayOf(1.0f, 2f)
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 alpha = floatArrayOf(1f, 0.5f)
             }
             duration = 350L
+            delay = 400L
             interpolator = AccelerateInterpolator()
         }
     }

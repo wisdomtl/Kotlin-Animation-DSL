@@ -15,6 +15,7 @@ abstract class Anim {
      * the real Animator which is about to run
      */
     abstract var animator: ValueAnimator
+    var builder: AnimatorSet.Builder? = null
     /**
      * the duration of Animator
      */
@@ -31,7 +32,14 @@ abstract class Anim {
         set(value) {
             animator.interpolator = value
         }
-    var builder:AnimatorSet.Builder? = null
+    /**
+     * start delay of Animator
+     */
+    var delay
+        get() = 0L
+        set(value) {
+            animator.startDelay = value
+        }
     /**
      * reverse the value of [ValueAnimator]
      */
