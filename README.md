@@ -2,8 +2,9 @@
 simplify Android animation code by redefining API, use just one third of code to create animation compare to origin Android API
 
 
-if we want to do an animation like the following: scale textView and translate button at the same time, then stretch imageView.
-using Android origin API, the code will like this:
+If we want to do an animation like the following: scale textView and translate button at the same time, then stretch imageView.
+
+Using Android origin API, the code will like this:
 ```
 PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.3f);
 PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.3f);
@@ -44,8 +45,9 @@ animatorSet.addListener(new Animator.AnimatorListener() {
 });
 animatorSet.start();
 ```
-too long and unreadable!
-let us do it by DSL:
+Too long and unreadable!
+
+Let us do it by DSL:
 ```
 animSet {
     objectAnim {
