@@ -75,5 +75,5 @@ animSet {
     start()
 }
 ```
-The code is just like an english article.
+The animations' creation and the relationship between them is define in one method.You can use `with` and `before` to define the sequence of animations just like speaking english.
 
