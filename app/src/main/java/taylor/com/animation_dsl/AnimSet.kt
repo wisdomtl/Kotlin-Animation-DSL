@@ -78,6 +78,11 @@ class AnimSet : Anim() {
     }
 
     /**
+     * get the animation in the [AnimSet] by [index]
+     */
+    fun getAnim(index: Int) = anims.takeIf { index in 0 until anims.size }?.let { it[index] }
+
+    /**
      * cancel the [AnimatorSet]
      */
     fun cancel() {

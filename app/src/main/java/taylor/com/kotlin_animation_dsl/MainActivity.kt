@@ -7,6 +7,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import taylor.com.animation_dsl.ObjectAnim
 import taylor.com.animation_dsl.animSet
 
 class MainActivity : AppCompatActivity() {
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         /**
          * case:complex animations
          */
+        (complexAnim.getAnim(2) as ObjectAnim).scaleX = floatArrayOf(1.0f,3.0f)//change property values after animation built
         btnComplex.setOnClickListener { complexAnim.start() }
         btnComplexReverse.setOnClickListener { complexAnim.reverse() }
 

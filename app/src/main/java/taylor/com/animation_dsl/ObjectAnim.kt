@@ -29,15 +29,72 @@ class ObjectAnim : Anim() {
 
     /**
      * predefine properties for [android.view.View]
+     * add a set() for each property inorder to change it dynamically
      */
     var translationX: FloatArray? = null
+        set(value) {
+            field = value
+            translationX?.let { PropertyValuesHolder.ofFloat(TRANSLATION_X, *it) }?.let { property ->
+                valuesHolder[TRANSLATION_X] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var translationY: FloatArray? = null
+        set(value) {
+            field = value
+            translationY?.let { PropertyValuesHolder.ofFloat(TRANSLATION_Y, *it) }?.let { property ->
+                valuesHolder[TRANSLATION_Y] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var scaleX: FloatArray? = null
+        set(value) {
+            field = value
+            scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { property ->
+                valuesHolder[SCALE_X] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var scaleY: FloatArray? = null
+        set(value) {
+            field = value
+            scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { property ->
+                valuesHolder[SCALE_Y] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var alpha: FloatArray? = null
+        set(value) {
+            field = value
+            alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { property ->
+                valuesHolder[ALPHA] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var rotation: FloatArray? = null
+        set(value) {
+            field = value
+            rotation?.let { PropertyValuesHolder.ofFloat(ROTATION, *it) }?.let { property ->
+                valuesHolder[ROTATION] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var rotationX: FloatArray? = null
+        set(value) {
+            field = value
+            rotationX?.let { PropertyValuesHolder.ofFloat(ROTATION_X, *it) }?.let { property ->
+                valuesHolder[ROTATION_X] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     var rotationY: FloatArray? = null
+        set(value) {
+            field = value
+            rotationY?.let { PropertyValuesHolder.ofFloat(ROTATION_Y, *it) }?.let { property ->
+                valuesHolder[ROTATION_Y] = property
+                objectAnimator.setValues(*valuesHolder.values.toTypedArray())
+            }
+        }
     /**
      * the object to be animated which is needed for [ObjectAnimator]
      */
@@ -47,47 +104,47 @@ class ObjectAnim : Anim() {
             (animator as ObjectAnimator).target = value
         }
     /**
-     * a list of [PropertyValuesHolder] to describe what kind of animations to run
+     * a map of [PropertyValuesHolder] to describe what kind of animations to run
      */
-    private val valuesHolder = mutableListOf<PropertyValuesHolder>()
+    private val valuesHolder = mutableMapOf<String, PropertyValuesHolder>()
 
     /**
      * reverse the value of [ObjectAnimator]
      */
     override fun reverse() {
         valuesHolder.forEach { valuesHolder ->
-            when (valuesHolder.propertyName) {
+            when (valuesHolder.key) {
                 TRANSLATION_X -> translationX?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[TRANSLATION_X]?.setFloatValues(*it)
                 }
                 TRANSLATION_Y -> translationY?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[TRANSLATION_Y]?.setFloatValues(*it)
                 }
                 SCALE_X -> scaleX?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[SCALE_X]?.setFloatValues(*it)
                 }
                 SCALE_Y -> scaleY?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[SCALE_Y]?.setFloatValues(*it)
                 }
                 ALPHA -> alpha?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[ALPHA]?.setFloatValues(*it)
                 }
                 ROTATION -> rotation?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[ROTATION]?.setFloatValues(*it)
                 }
                 ROTATION_X -> rotationX?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[ROTATION_X]?.setFloatValues(*it)
                 }
                 ROTATION_Y -> rotationY?.let {
                     it.reverse()
-                    valuesHolder.setFloatValues(*it)
+                    this.valuesHolder[ROTATION_Y]?.setFloatValues(*it)
                 }
             }
         }
@@ -97,14 +154,14 @@ class ObjectAnim : Anim() {
      * add available [PropertyValuesHolder] to the list
      */
     fun setPropertyValueHolder() {
-        translationX?.let { PropertyValuesHolder.ofFloat(TRANSLATION_X, *it) }?.let { valuesHolder.add(it) }
-        translationY?.let { PropertyValuesHolder.ofFloat(TRANSLATION_Y, *it) }?.let { valuesHolder.add(it) }
-        scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { valuesHolder.add(it) }
-        scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { valuesHolder.add(it) }
-        alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { valuesHolder.add(it) }
-        rotation?.let { PropertyValuesHolder.ofFloat(ROTATION, *it) }?.let { valuesHolder.add(it) }
-        rotationX?.let { PropertyValuesHolder.ofFloat(ROTATION_X, *it) }?.let { valuesHolder.add(it) }
-        rotationY?.let { PropertyValuesHolder.ofFloat(ROTATION_Y, *it) }?.let { valuesHolder.add(it) }
-        objectAnimator.setValues(*valuesHolder.toTypedArray())
+        translationX?.let { PropertyValuesHolder.ofFloat(TRANSLATION_X, *it) }?.let { valuesHolder[TRANSLATION_X] = it }
+        translationY?.let { PropertyValuesHolder.ofFloat(TRANSLATION_Y, *it) }?.let { valuesHolder[TRANSLATION_Y] = it }
+        scaleX?.let { PropertyValuesHolder.ofFloat(SCALE_X, *it) }?.let { valuesHolder[SCALE_X] = it }
+        scaleY?.let { PropertyValuesHolder.ofFloat(SCALE_Y, *it) }?.let { valuesHolder[SCALE_Y] = it }
+        alpha?.let { PropertyValuesHolder.ofFloat(ALPHA, *it) }?.let { valuesHolder[ALPHA] = it }
+        rotation?.let { PropertyValuesHolder.ofFloat(ROTATION, *it) }?.let { valuesHolder[ROTATION] = it }
+        rotationX?.let { PropertyValuesHolder.ofFloat(ROTATION_X, *it) }?.let { valuesHolder[ROTATION_X] = it }
+        rotationY?.let { PropertyValuesHolder.ofFloat(ROTATION_Y, *it) }?.let { valuesHolder[ROTATION_Y] = it }
+        objectAnimator.setValues(*valuesHolder.values.toTypedArray())
     }
 }
