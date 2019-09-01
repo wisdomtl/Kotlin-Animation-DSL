@@ -40,6 +40,25 @@ class ValueAnim : Anim() {
                 valueAnimator.animatedValue.let { value?.invoke(it) }
             }
         }
+    /**
+     * the repeat times of [ValueAnim]
+     * [ValueAnimator.INFINITE] means repeat forever
+     */
+    var repeatCount
+        get() = 0
+        set(value) {
+            valueAnimator.repeatCount = value
+        }
+
+    /**
+     * the repeat mode of [ValueAnim]
+     * the available value is [ValueAnimator.RESTART] or [ValueAnimator.REVERSE]
+     */
+    var repeatMode
+        get() = ValueAnimator.RESTART
+        set(value) {
+            valueAnimator.repeatMode = value
+        }
 
     /**
      * reverse the value of [ValueAnimator]

@@ -41,6 +41,7 @@ abstract class Anim {
         set(value) {
             animator.startDelay = value
         }
+
     /**
      * the callbacks describe the status of animation
      */

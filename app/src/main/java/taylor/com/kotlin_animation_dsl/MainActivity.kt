@@ -1,5 +1,6 @@
 package taylor.com.kotlin_animation_dsl
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -82,6 +83,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val repeatAnim by lazy {
+        animSet {
+            objectAnim {
+                target = tv
+                translationX = floatArrayOf(-100f,100f)
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+                interpolator = LinearInterpolator()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -110,6 +123,13 @@ class MainActivity : AppCompatActivity() {
         (complexAnim.getAnim(2) as ObjectAnim).scaleX = floatArrayOf(1.0f,3.0f)//change property values after animation built
         btnComplex.setOnClickListener { complexAnim.start() }
         btnComplexReverse.setOnClickListener { complexAnim.reverse() }
+
+        /**
+         * case:repeat animation
+         */
+        btnRepeat.setOnClickListener {
+            repeatAnim.start()
+        }
 
     }
 

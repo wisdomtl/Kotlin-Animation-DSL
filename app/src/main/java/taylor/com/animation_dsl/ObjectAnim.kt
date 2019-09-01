@@ -3,6 +3,7 @@ package taylor.com.animation_dsl
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
 
 /**
  * An Animator just like [ObjectAnimator], but it could reverse itself without the limitation of API level.
@@ -102,6 +103,25 @@ class ObjectAnim : Anim() {
         set(value) {
             field = value
             (animator as ObjectAnimator).target = value
+        }
+    /**
+     * the repeat times of [ObjectAnim]
+     * [ValueAnimator.INFINITE] means repeat forever
+     */
+    var repeatCount
+        get() = 0
+        set(value) {
+            objectAnimator.repeatCount = value
+        }
+
+    /**
+     * the repeat mode of [ObjectAnim]
+     * the available value is [ValueAnimator.RESTART] or [ValueAnimator.REVERSE]
+     */
+    var repeatMode
+        get() = ValueAnimator.RESTART
+        set(value) {
+            objectAnimator.repeatMode = value
         }
     /**
      * a map of [PropertyValuesHolder] to describe what kind of animations to run
