@@ -77,6 +77,10 @@ class AnimSet : Anim() {
         isReverse = true
     }
 
+    override fun toBeginning() {
+        anims.forEach { it.toBeginning() }
+    }
+
     /**
      * get the animation in the [AnimSet] by [index]
      */

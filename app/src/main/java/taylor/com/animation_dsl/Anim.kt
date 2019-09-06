@@ -55,6 +55,11 @@ abstract class Anim {
      */
     abstract fun reverse()
 
+    /**
+     * to the beginning of animation
+     */
+    abstract fun toBeginning()
+
     internal fun addListener() {
         animator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {

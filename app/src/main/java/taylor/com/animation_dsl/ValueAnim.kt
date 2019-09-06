@@ -78,4 +78,7 @@ class ValueAnim : Anim() {
             }
         }
     }
+
+    override fun toBeginning() {
+    }
 }

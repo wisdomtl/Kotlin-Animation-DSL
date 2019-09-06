@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
+import android.view.View
 
 /**
  * An Animator just like [ObjectAnimator], but it could reverse itself without the limitation of API level.
@@ -165,6 +166,37 @@ class ObjectAnim : Anim() {
                 ROTATION_Y -> rotationY?.let {
                     it.reverse()
                     this.valuesHolder[ROTATION_Y]?.setFloatValues(*it)
+                }
+            }
+        }
+    }
+
+    override fun toBeginning() {
+        valuesHolder.forEach { valuesHolder ->
+            when (valuesHolder.key) {
+                TRANSLATION_X -> translationX?.let {
+                    (target as? View)?.translationX = it.first()
+                }
+                TRANSLATION_Y -> translationY?.let {
+                    (target as? View)?.translationY = it.first()
+                }
+                SCALE_X -> scaleX?.let {
+                    (target as? View)?.scaleX = it.first()
+                }
+                SCALE_Y -> scaleY?.let {
+                    (target as? View)?.scaleY = it.first()
+                }
+                ALPHA -> alpha?.let {
+                    (target as? View)?.alpha = it.first()
+                }
+                ROTATION -> rotation?.let {
+                    (target as? View)?.rotation = it.first()
+                }
+                ROTATION_X -> rotationX?.let {
+                    (target as? View)?.rotationX = it.first()
+                }
+                ROTATION_Y -> rotationY?.let {
+                    (target as? View)?.rotationY = it.first()
                 }
             }
         }

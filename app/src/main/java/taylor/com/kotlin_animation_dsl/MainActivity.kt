@@ -131,6 +131,12 @@ class MainActivity : AppCompatActivity() {
             repeatAnim.start()
         }
 
+        /**
+         * case:to the beginning of animation
+         */
+        btnToBeginning.setOnClickListener {
+            objectAnim.toBeginning()
+        }
     }
 
 }
